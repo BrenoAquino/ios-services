@@ -9,13 +9,13 @@ import Foundation
 
 class GenreInterface {
     
-    private var network: Network<GenreAPI> = Network<GenreAPI>()
+    private var network: Network<GenreAPIs> = Network<GenreAPIs>()
     private var config: MovieDBConfig = MovieDBConfig()
     
     init() {}
     
     func genres(callback: @escaping (Result<[Genre], NSError>) -> Void) {
-        network.request(GenreAPI.genres(config: config)) { result in
+        network.request(GenreAPIs.genres(config: config)) { result in
             switch result {
             case .success(let response):
                 do {

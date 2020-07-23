@@ -9,13 +9,13 @@ import Foundation
 
 class MovieInterface {
     
-    private var network: Network<MovieAPI> = Network<MovieAPI>()
+    private var network: Network<MovieAPIs> = Network<MovieAPIs>()
     private var config: MovieDBConfig = MovieDBConfig()
     
     init() {}
     
     func upcoming(callback: @escaping (Result<[Movie], NSError>) -> Void) {
-        network.request(MovieAPI.upcoming(config: config)) { result in
+        network.request(MovieAPIs.upcoming(config: config)) { result in
             switch result {
             case .success(let response):
                 do {
@@ -32,7 +32,7 @@ class MovieInterface {
     }
     
     func detail(id: Int, callback: @escaping (Result<Movie, NSError>) -> Void) {
-        network.request(MovieAPI.detail(id: id, config: config)) { result in
+        network.request(MovieAPIs.detail(id: id, config: config)) { result in
             switch result {
             case .success(let response):
                 do {
@@ -49,7 +49,7 @@ class MovieInterface {
     }
     
     func keywords(id: Int, callback: @escaping (Result<[Keyword], NSError>) -> Void) {
-        network.request(MovieAPI.keywords(id: id, config: config)) { result in
+        network.request(MovieAPIs.keywords(id: id, config: config)) { result in
             switch result {
             case .success(let response):
                 do {
@@ -66,7 +66,7 @@ class MovieInterface {
     }
     
     func recommendations(id: Int, callback: @escaping (Result<[Movie], NSError>) -> Void) {
-        network.request(MovieAPI.recommendations(id: id, config: config)) { result in
+        network.request(MovieAPIs.recommendations(id: id, config: config)) { result in
             switch result {
             case .success(let response):
                 do {

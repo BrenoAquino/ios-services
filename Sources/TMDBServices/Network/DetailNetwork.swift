@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  DetailBusiness.swift
 //  
 //
 //  Created by Breno Aquino on 11/07/20.

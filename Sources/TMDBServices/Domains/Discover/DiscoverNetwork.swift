@@ -14,7 +14,7 @@ class DiscoverNetwork {
     
     init() {}
     
-    func movies(genre: Int, callback: @escaping (Result<[Movie], NSError>) -> Void) {
+    func movies(genre: Int, callback: @escaping (Result<[Movie], TMDBError>) -> Void) {
         network.request(DiscoverAPIs.discoverMovie(config: config, genre: genre)) { result in
             switch result {
             case .success(let response):
@@ -22,11 +22,11 @@ class DiscoverNetwork {
                     let movies = try response.map([Movie].self, atKeyPath: "results", using: JSONDecoder(), failsOnEmptyData: false)
                     callback(.success(movies))
                 } catch let error {
-                    callback(.failure(error as NSError))
+                    callback(.failure(TMDBError(error)))
                 }
                 
             case .failure(let error):
-                callback(.failure(error as NSError))
+                callback(.failure(TMDBError(error)))
             }
         }
     }

@@ -14,7 +14,7 @@ class MovieNetwork {
     
     init() {}
     
-    func upcoming(callback: @escaping (Result<[Movie], NSError>) -> Void) {
+    func upcoming(callback: @escaping (Result<[Movie], TMDBError>) -> Void) {
         network.request(MovieAPIs.upcoming(config: config)) { result in
             switch result {
             case .success(let response):
@@ -22,16 +22,16 @@ class MovieNetwork {
                     let movies = try response.map([Movie].self, atKeyPath: "results", using: JSONDecoder(), failsOnEmptyData: false)
                     callback(.success(movies))
                 } catch let error {
-                    callback(.failure(error as NSError))
+                    callback(.failure(TMDBError(error)))
                 }
                 
             case .failure(let error):
-                callback(.failure(error as NSError))
+                callback(.failure(TMDBError(error)))
             }
         }
     }
     
-    func detail(id: Int, callback: @escaping (Result<Movie, NSError>) -> Void) {
+    func detail(id: Int, callback: @escaping (Result<Movie, TMDBError>) -> Void) {
         network.request(MovieAPIs.detail(id: id, config: config)) { result in
             switch result {
             case .success(let response):
@@ -39,16 +39,16 @@ class MovieNetwork {
                     let movies = try response.map(Movie.self, using: JSONDecoder(), failsOnEmptyData: false)
                     callback(.success(movies))
                 } catch let error {
-                    callback(.failure(error as NSError))
+                    callback(.failure(TMDBError(error)))
                 }
                 
             case .failure(let error):
-                callback(.failure(error as NSError))
+                callback(.failure(TMDBError(error)))
             }
         }
     }
     
-    func keywords(id: Int, callback: @escaping (Result<[Keyword], NSError>) -> Void) {
+    func keywords(id: Int, callback: @escaping (Result<[Keyword], TMDBError>) -> Void) {
         network.request(MovieAPIs.keywords(id: id, config: config)) { result in
             switch result {
             case .success(let response):
@@ -56,16 +56,16 @@ class MovieNetwork {
                     let movies = try response.map([Keyword].self, atKeyPath: "keywords", using: JSONDecoder(), failsOnEmptyData: false)
                     callback(.success(movies))
                 } catch let error {
-                    callback(.failure(error as NSError))
+                    callback(.failure(TMDBError(error)))
                 }
                 
             case .failure(let error):
-                callback(.failure(error as NSError))
+                callback(.failure(TMDBError(error)))
             }
         }
     }
     
-    func recommendations(id: Int, callback: @escaping (Result<[Movie], NSError>) -> Void) {
+    func recommendations(id: Int, callback: @escaping (Result<[Movie], TMDBError>) -> Void) {
         network.request(MovieAPIs.recommendations(id: id, config: config)) { result in
             switch result {
             case .success(let response):
@@ -73,11 +73,11 @@ class MovieNetwork {
                     let movies = try response.map([Movie].self, atKeyPath: "results", using: JSONDecoder(), failsOnEmptyData: false)
                     callback(.success(movies))
                 } catch let error {
-                    callback(.failure(error as NSError))
+                    callback(.failure(TMDBError(error)))
                 }
                 
             case .failure(let error):
-                callback(.failure(error as NSError))
+                callback(.failure(TMDBError(error)))
             }
         }
     }

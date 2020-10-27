@@ -28,7 +28,7 @@ public class HomeInterface {
     }
     
     // MARK: - Network Methods
-    private func getUpcoming(group: DispatchGroup?, callback: @escaping (Result<[Movie], NSError>) -> Void) {
+    private func getUpcoming(group: DispatchGroup?, callback: @escaping (Result<[Movie], TMDBError>) -> Void) {
         group?.enter()
         movieNetwork.upcoming { result in
             callback(result)
@@ -36,7 +36,7 @@ public class HomeInterface {
         }
     }
     
-    private func getGenres(group: DispatchGroup?, callback: @escaping (Result<[Genre], NSError>) -> Void) {
+    private func getGenres(group: DispatchGroup?, callback: @escaping (Result<[Genre], TMDBError>) -> Void) {
         group?.enter()
         genreNetwork.genres { result in
             callback(result)
@@ -44,7 +44,7 @@ public class HomeInterface {
         }
     }
     
-    private func getMovies(group: DispatchGroup?, genre: Genre, callback: @escaping (Result<[Movie], NSError>) -> Void) {
+    private func getMovies(group: DispatchGroup?, genre: Genre, callback: @escaping (Result<[Movie], TMDBError>) -> Void) {
         group?.enter()
         discoverNetwork.movies(genre: genre.id) { result in
             callback(result)
@@ -53,9 +53,9 @@ public class HomeInterface {
     }
     
     // MARK: - Interfaces
-    public func home(callback: @escaping (Result<HomeResult, NSError>) -> Void) {
+    public func home(callback: @escaping (Result<HomeResult, TMDBError>) -> Void) {
         var homeResult: HomeResult = HomeResult()
-        var error: NSError? = nil
+        var error: TMDBError? = nil
         
         let group = DispatchGroup()
         getUpcoming(group: group) { $0.unwrapper(&homeResult.upcomings, &error) }

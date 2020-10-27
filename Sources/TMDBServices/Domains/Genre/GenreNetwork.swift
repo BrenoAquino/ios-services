@@ -14,7 +14,7 @@ class GenreNetwork {
     
     init() {}
     
-    func genres(callback: @escaping (Result<[Genre], NSError>) -> Void) {
+    func genres(callback: @escaping (Result<[Genre], TMDBError>) -> Void) {
         network.request(GenreAPIs.genres(config: config)) { result in
             switch result {
             case .success(let response):
@@ -22,11 +22,11 @@ class GenreNetwork {
                     let genres = try response.map([Genre].self, atKeyPath: "genres", using: JSONDecoder(), failsOnEmptyData: false)
                     callback(.success(genres))
                 } catch let error {
-                    callback(.failure(error as NSError))
+                    callback(.failure(TMDBError(error)))
                 }
                 
             case .failure(let error):
-                callback(.failure(error as NSError))
+                callback(.failure(TMDBError(error)))
             }
         }
     }

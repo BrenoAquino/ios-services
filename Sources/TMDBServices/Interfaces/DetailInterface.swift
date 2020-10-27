@@ -24,7 +24,7 @@ public class DetailInterface {
     }
     
     // MARK: - Network Methods
-    public func getDetail(group: DispatchGroup?, id: Int, callback: @escaping (Result<Movie, NSError>) -> Void) {
+    public func getDetail(group: DispatchGroup?, id: Int, callback: @escaping (Result<Movie, TMDBError>) -> Void) {
         group?.enter()
         movieNetwork.detail(id: id) { result in
             callback(result)
@@ -32,7 +32,7 @@ public class DetailInterface {
         }
     }
     
-    public func getKeywords(group: DispatchGroup?, id: Int, callback: @escaping (Result<[Keyword], NSError>) -> Void) {
+    public func getKeywords(group: DispatchGroup?, id: Int, callback: @escaping (Result<[Keyword], TMDBError>) -> Void) {
         group?.enter()
         movieNetwork.keywords(id: id) { result in
             callback(result)
@@ -40,7 +40,7 @@ public class DetailInterface {
         }
     }
     
-    public func getRecommendations(group: DispatchGroup?, id: Int, callback: @escaping (Result<[Movie], NSError>) -> Void) {
+    public func getRecommendations(group: DispatchGroup?, id: Int, callback: @escaping (Result<[Movie], TMDBError>) -> Void) {
         group?.enter()
         movieNetwork.recommendations(id: id) { result in
             callback(result)
@@ -49,9 +49,9 @@ public class DetailInterface {
     }
     
     // MARK: - Interfaces
-    public func detail(id: Int, callback: @escaping (Result<DetailResult, NSError>) -> Void) {
+    public func detail(id: Int, callback: @escaping (Result<DetailResult, TMDBError>) -> Void) {
         var detailResult: DetailResult = DetailResult()
-        var error: NSError? = nil
+        var error: TMDBError? = nil
         
         let group = DispatchGroup()
         getDetail(group: group, id: id) { $0.unwrapper(&detailResult.movie, &error) }

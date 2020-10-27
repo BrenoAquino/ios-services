@@ -1,5 +1,5 @@
 //
-//  GenreInterface.swift
+//  GenreNetwork.swift
 //  
 //
 //  Created by Breno Aquino on 11/07/20.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-class GenreInterface {
+class GenreNetwork {
     
     private var network: Network<GenreAPIs> = Network<GenreAPIs>()
-    private var config: MovieDBConfig = MovieDBConfig()
+    private var config: MovieDBConfig = MovieDBConfig(version: .v3)
     
     init() {}
     

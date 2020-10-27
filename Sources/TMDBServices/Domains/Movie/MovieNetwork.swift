@@ -1,5 +1,5 @@
 //
-//  MovieInterface.swift
+//  MovieNetwork.swift
 //  
 //
 //  Created by Breno Aquino on 11/07/20.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-class MovieInterface {
+class MovieNetwork {
     
     private var network: Network<MovieAPIs> = Network<MovieAPIs>()
-    private var config: MovieDBConfig = MovieDBConfig()
+    private var config: MovieDBConfig = MovieDBConfig(version: .v3)
     
     init() {}
     

@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum DiscoverAPIs {
-    case discoverMovie(config: Config, genre: Int)
+    case discoverMovie(config: MovieDBConfig, genre: Int)
 }
 
 extension DiscoverAPIs: TargetType {
@@ -44,10 +44,7 @@ extension DiscoverAPIs: TargetType {
     }
     
     var headers: [String : String]? {
-        switch self {
-        case .discoverMovie(let config, _):
-            return config.headers
-        }
+        return nil
     }
     
     var validationType: ValidationType {

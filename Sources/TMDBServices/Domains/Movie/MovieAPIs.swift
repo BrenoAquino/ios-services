@@ -9,10 +9,10 @@ import Foundation
 import Moya
 
 enum MovieAPIs {
-    case upcoming(config: Config)
-    case detail(id: Int, config: Config)
-    case keywords(id: Int, config: Config)
-    case recommendations(id: Int, config: Config)
+    case upcoming(config: MovieDBConfig)
+    case detail(id: Int, config: MovieDBConfig)
+    case keywords(id: Int, config: MovieDBConfig)
+    case recommendations(id: Int, config: MovieDBConfig)
 }
 
 extension MovieAPIs: TargetType {
@@ -59,13 +59,7 @@ extension MovieAPIs: TargetType {
     }
     
     var headers: [String : String]? {
-        switch self {
-        case .upcoming(let config),
-             .detail(_, let config),
-             .keywords(_, let config),
-             .recommendations(_, let config):
-            return config.headers
-        }
+        return nil
     }
     
     var validationType: ValidationType {

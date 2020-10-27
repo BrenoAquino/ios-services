@@ -1,5 +1,5 @@
 //
-//  DiscoverInterface.swift
+//  DiscoverNetwork.swift
 //  
 //
 //  Created by Breno Aquino on 11/07/20.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-class DiscoverInterface {
+class DiscoverNetwork {
     
     private var network: Network<DiscoverAPIs> = Network<DiscoverAPIs>()
-    private var config: MovieDBConfig = MovieDBConfig()
+    private var config: MovieDBConfig = MovieDBConfig(version: .v3)
     
     init() {}
     

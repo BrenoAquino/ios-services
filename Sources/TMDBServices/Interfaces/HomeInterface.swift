@@ -1,0 +1,81 @@
+//
+//  HomeInterface.swift
+//  
+//
+//  Created by Breno Aquino on 11/07/20.
+//
+
+import Foundation
+
+public class HomeInterface {
+    
+    public struct HomeResult {
+        var genres: [Genre]? = nil
+        var upcomings: [Movie]? = nil
+        var moviesByGenre: [Int: [Movie]?]? = nil
+    }
+    
+    // MARK: Network Interfaces
+    private let genreNetwork: GenreNetwork
+    private let discoverNetwork: DiscoverNetwork
+    private let movieNetwork: MovieNetwork
+    
+    // MARK: - Life Cycle
+    public init() {
+        genreNetwork = GenreNetwork()
+        discoverNetwork = DiscoverNetwork()
+        movieNetwork = MovieNetwork()
+    }
+    
+    // MARK: - Network Methods
+    private func getUpcoming(group: DispatchGroup?, callback: @escaping (Result<[Movie], NSError>) -> Void) {
+        group?.enter()
+        movieNetwork.upcoming { result in
+            callback(result)
+            group?.leave()
+        }
+    }
+    
+    private func getGenres(group: DispatchGroup?, callback: @escaping (Result<[Genre], NSError>) -> Void) {
+        group?.enter()
+        genreNetwork.genres { result in
+            callback(result)
+            group?.leave()
+        }
+    }
+    
+    private func getMovies(group: DispatchGroup?, genre: Genre, callback: @escaping (Result<[Movie], NSError>) -> Void) {
+        group?.enter()
+        discoverNetwork.movies(genre: genre.id) { result in
+            callback(result)
+            group?.leave()
+        }
+    }
+    
+    // MARK: - Interfaces
+    public func home(callback: @escaping (Result<HomeResult, NSError>) -> Void) {
+        var homeResult: HomeResult = HomeResult()
+        var error: NSError? = nil
+        
+        let group = DispatchGroup()
+        getUpcoming(group: group) { $0.unwrapper(&homeResult.upcomings, &error) }
+        getGenres(group: group) { result in
+            var genres: [Genre]?
+            result.unwrapper(&genres, &error)
+            
+            genres?.forEach { [weak self] genre in
+                var movies: [Movie]?
+                self?.getMovies(group: group, genre: genre) { $0.unwrapper(&movies, &error) }
+                homeResult.moviesByGenre?[genre.id] = movies
+            }
+        }
+        
+        group.notify(queue: .global()) {
+            if let error = error {
+                callback(.failure(error))
+            } else {
+                callback(.success(homeResult))
+            }
+        }
+    }
+}

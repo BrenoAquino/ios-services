@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum GenreAPIs {
-    case genres(config: Config)
+    case genres(config: MovieDBConfig)
 }
 
 extension GenreAPIs: TargetType {
@@ -44,10 +44,7 @@ extension GenreAPIs: TargetType {
     }
     
     var headers: [String : String]? {
-        switch self {
-        case .genres(let config):
-            return config.headers
-        }
+        return nil
     }
     
     var validationType: ValidationType {

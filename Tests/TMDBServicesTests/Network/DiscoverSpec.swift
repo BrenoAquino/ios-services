@@ -26,7 +26,7 @@ class DiscoverSpec: QuickSpec {
         }
         
         describe("Hitting internet") {
-            context("for upcoming movies") {
+            context("for discover movies") {
                 it("and returning success") {
                     self.hittingInternetDiscoverSuccess()
                 }
@@ -78,6 +78,20 @@ extension DiscoverSpec {
     
     func hittingInternetDiscoverFailure() {
         Mock.shared.add(target: DiscoverAPIs.discoverMovie(config: config, genre: 28), endpoint: DiscoverMock.discoverGenericError)
+        
+        waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
+            DiscoverNetwork().movies(genre: 25) { result in
+                switch result {
+                case .success:
+                    fail("Not supposed to return any movie")
+                case .failure(let error):
+                    expect(error.statusCode).to(equal(400))
+                    expect(error.errorCode).to(equal(34))
+                    expect(error.message).to(equal("The resource you requested could not be found."))
+                }
+                done()
+            }
+        }
     }
     
     func hittingInternetDiscoverEmpty() {

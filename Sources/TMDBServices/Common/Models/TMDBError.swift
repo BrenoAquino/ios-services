@@ -14,7 +14,8 @@ public struct TMDBErrorModel: Codable {
     public let message: String?
     
     enum CodingKeys: String, CodingKey {
-        case statusCode, message
+        case statusCode
+        case message = "status_message"
         case errorCode = "status_code"
     }
 }
@@ -35,6 +36,7 @@ public struct TMDBError: Error {
     public var type: ErrorType = .encodingError
     public var message: String? { model?.message }
     public var statusCode: Int? { model?.statusCode }
+    public var errorCode: Int? { model?.errorCode }
     
     // MARK: - Inits
     public init(_ error: Error) {

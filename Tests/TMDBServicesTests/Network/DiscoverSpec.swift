@@ -35,11 +35,11 @@ class DiscoverSpec: QuickSpec {
                     self.hittingInternetDiscoverFailure()
                 }
                 
-                it("and return unexpected object") {
+                it("and returning unexpected object") {
                     self.hittingInternetDiscoverMapError()
                 }
                 
-                it("and empty result") {
+                it("and returning empty result") {
                     self.hittingInternetDiscoverEmpty()
                 }
             }

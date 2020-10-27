@@ -3,7 +3,7 @@ This module implements an abstraction for some of [The Movie DB](<https://www.th
 
 TMDBServices is responsible only for direct integration with The Movie DB APIs. This modularization allows the maintenance of the integration with the APIs and business rules of obtaining the data to be unified for all fronts of _Apple Things_.
 
-The The Movie DB Documnetation is available [here](<https://developers.themoviedb.org/3/getting-started/introduction>).
+The Movie DB Documnetation is available [here](<https://developers.themoviedb.org/3/getting-started/introduction>).
 
 # Requirements
 | Operational System | Version |

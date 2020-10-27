@@ -35,6 +35,10 @@ class DiscoverSpec: QuickSpec {
                     self.hittingInternetDiscoverFailure()
                 }
                 
+                it("and return unexpected object") {
+                    self.hittingInternetDiscoverMapError()
+                }
+                
                 it("and empty result") {
                     self.hittingInternetDiscoverEmpty()
                 }
@@ -88,6 +92,22 @@ extension DiscoverSpec {
                     expect(error.statusCode).to(equal(400))
                     expect(error.errorCode).to(equal(34))
                     expect(error.message).to(equal("The resource you requested could not be found."))
+                }
+                done()
+            }
+        }
+    }
+    
+    func hittingInternetDiscoverMapError() {
+        Mock.shared.add(target: DiscoverAPIs.discoverMovie(config: config, genre: 28), endpoint: DiscoverMock.discoverMapError)
+        
+        waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
+            DiscoverNetwork().movies(genre: 25) { result in
+                switch result {
+                case .success:
+                    fail("Not supposed to return a valid movie")
+                case .failure(let error):
+                    expect(error.type).to(equal(.encodingError))
                 }
                 done()
             }

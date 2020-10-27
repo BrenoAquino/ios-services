@@ -50,8 +50,4 @@ extension DiscoverAPIs: TargetType {
     var validationType: ValidationType {
         return .successCodes
     }
-    
-    var sampleData: Data {
-        return Data()
-    }
 }

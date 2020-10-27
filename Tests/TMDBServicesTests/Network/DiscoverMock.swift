@@ -32,6 +32,17 @@ enum DiscoverMock {
         )
     }
     
+    static let discoverMapError = { (target: Moya.TargetType) -> Endpoint in
+        let data = Mock.shared.file("discover-28-map-error")
+        return Endpoint(
+            url: target.baseURL.appendingPathComponent(target.path).absoluteString,
+            sampleResponseClosure: { .networkResponse(200, data) },
+            method: target.method,
+            task: target.task,
+            httpHeaderFields: target.headers
+        )
+    }
+    
     static let discoverEmpty = { (target: Moya.TargetType) -> Endpoint in
         let data = Mock.shared.file("discover-28-empty")
         return Endpoint(

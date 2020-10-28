@@ -19,7 +19,7 @@ public class MovieDBConfig: NSObject {
     
     func path(_ path: String) -> String {
         if let version = version {
-            return "\(version.rawValue)/\(path)"
+            return "\(version.rawValue)\(path)"
         }
         return path
     }

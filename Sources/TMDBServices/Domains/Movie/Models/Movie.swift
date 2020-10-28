@@ -22,9 +22,19 @@ public struct Movie: Codable {
     public let voteAverage: Double?
     public let overview: String?
     public let releaseDate: String?
+    public let genres: [Genre]?
+    
+    public let budget: Int?
+    public let homepage: String?
+    public let imdbId: String?
+    public let revenue: Int?
+    public let runtime: Int?
+    public let status: String?
+    public let tagline: String?
+    public let productionCompanies: [ProductCompany]?
     
     enum CodingKeys: String, CodingKey {
-        case popularity, id, adult, title, overview
+        case popularity, id, adult, title, overview, genres, budget, homepage, revenue, runtime, status, tagline
         case voteCount = "vote_count"
         case hasVideo = "video"
         case poster = "poster_path"
@@ -34,5 +44,7 @@ public struct Movie: Codable {
         case genreIDs = "genre_ids"
         case voteAverage = "vote_average"
         case releaseDate = "release_date"
+        case imdbId = "imdb_id"
+        case productionCompanies = "production_companies"
     }
 }

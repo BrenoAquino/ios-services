@@ -30,17 +30,25 @@ class DiscoverSpec: QuickSpec {
                 it("and returning success") {
                     self.hittingInternetDiscoverSuccess()
                 }
-                
+            }
+        }
+        
+        describe("Use mock") {
+            context("for discover movies") {
+                it("and returning success") {
+                    self.mockDiscoverSuccess()
+                }
+
                 it("and returning some error") {
-                    self.hittingInternetDiscoverFailure()
+                    self.mockDiscoverFailure()
                 }
-                
+
                 it("and returning unexpected object") {
-                    self.hittingInternetDiscoverMapError()
+                    self.mockDiscoverMapError()
                 }
-                
+
                 it("and returning empty result") {
-                    self.hittingInternetDiscoverEmpty()
+                    self.mockDiscoverEmpty()
                 }
             }
         }
@@ -49,12 +57,27 @@ class DiscoverSpec: QuickSpec {
 
 // MARK: - Tests
 extension DiscoverSpec {
-    // MARK: Hitting Internet
     func hittingInternetDiscoverSuccess() {
+        Mock.shared.isActive = false
+        
+        waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
+            DiscoverNetwork().movies(genre: 28) { result in
+                switch result {
+                case .success(let model):
+                    expect(model.count).to(beGreaterThanOrEqualTo(1))
+                case .failure(let error):
+                    fail(error.localizedDescription)
+                }
+                done()
+            }
+        }
+    }
+    
+    func mockDiscoverSuccess() {
         Mock.shared.add(target: DiscoverAPIs.discoverMovie(config: config, genre: 28), endpoint: DiscoverMock.discoverSuccess)
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
-            DiscoverNetwork().movies(genre: 25) { result in
+            DiscoverNetwork().movies(genre: 28) { result in
                 switch result {
                 case .success(let model):
                     expect(model.count).to(equal(20))
@@ -80,11 +103,11 @@ extension DiscoverSpec {
         }
     }
     
-    func hittingInternetDiscoverFailure() {
+    func mockDiscoverFailure() {
         Mock.shared.add(target: DiscoverAPIs.discoverMovie(config: config, genre: 28), endpoint: DiscoverMock.discoverGenericError)
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
-            DiscoverNetwork().movies(genre: 25) { result in
+            DiscoverNetwork().movies(genre: 28) { result in
                 switch result {
                 case .success:
                     fail("Not supposed to return any movie")
@@ -98,11 +121,11 @@ extension DiscoverSpec {
         }
     }
     
-    func hittingInternetDiscoverMapError() {
+    func mockDiscoverMapError() {
         Mock.shared.add(target: DiscoverAPIs.discoverMovie(config: config, genre: 28), endpoint: DiscoverMock.discoverMapError)
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
-            DiscoverNetwork().movies(genre: 25) { result in
+            DiscoverNetwork().movies(genre: 28) { result in
                 switch result {
                 case .success:
                     fail("Not supposed to return a valid movie")
@@ -114,11 +137,11 @@ extension DiscoverSpec {
         }
     }
     
-    func hittingInternetDiscoverEmpty() {
+    func mockDiscoverEmpty() {
         Mock.shared.add(target: DiscoverAPIs.discoverMovie(config: config, genre: 28), endpoint: DiscoverMock.discoverEmpty)
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
-            DiscoverNetwork().movies(genre: 25) { result in
+            DiscoverNetwork().movies(genre: 28) { result in
                 switch result {
                 case .success(let model):
                     expect(model.count).to(equal(0))

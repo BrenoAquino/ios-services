@@ -9,10 +9,13 @@ import Foundation
 
 class GenreNetwork {
     
-    private var network: Network<GenreAPIs> = Network<GenreAPIs>()
-    private var config: MovieDBConfig = MovieDBConfig(version: .v3)
+    private var network: Network<GenreAPIs>
+    private var config: MovieDBConfig
     
-    init() {}
+    init() {
+        network = Network<GenreAPIs>()
+        config = MovieDBConfig(version: .v3)
+    }
     
     func genres(callback: @escaping (Result<[Genre], TMDBError>) -> Void) {
         network.request(GenreAPIs.genres(config: config)) { result in

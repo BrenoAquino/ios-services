@@ -9,10 +9,13 @@ import Foundation
 
 class MovieNetwork {
     
-    private var network: Network<MovieAPIs> = Network<MovieAPIs>()
-    private var config: MovieDBConfig = MovieDBConfig(version: .v3)
+    private var network: Network<MovieAPIs>
+    private var config: MovieDBConfig
     
-    init() {}
+    init() {
+        network = Network<MovieAPIs>()
+        config = MovieDBConfig(version: .v3)
+    }
     
     func upcoming(callback: @escaping (Result<[Movie], TMDBError>) -> Void) {
         network.request(MovieAPIs.upcoming(config: config)) { result in

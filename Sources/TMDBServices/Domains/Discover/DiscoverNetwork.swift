@@ -9,10 +9,13 @@ import Foundation
 
 class DiscoverNetwork {
     
-    private var network: Network<DiscoverAPIs> = Network<DiscoverAPIs>()
-    private var config: MovieDBConfig = MovieDBConfig(version: .v3)
+    private var network: Network<DiscoverAPIs>
+    private var config: MovieDBConfig
     
-    init() {}
+    init() {
+        network = Network<DiscoverAPIs>()
+        config = MovieDBConfig(version: .v3)
+    }
     
     func movies(genre: Int, callback: @escaping (Result<[Movie], TMDBError>) -> Void) {
         network.request(DiscoverAPIs.discoverMovie(config: config, genre: genre)) { result in

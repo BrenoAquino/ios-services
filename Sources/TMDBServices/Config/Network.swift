@@ -22,7 +22,7 @@ class Network<TT: TargetType>: MoyaProvider<TT> {
     }
     
     public override func endpoint(_ token: TT) -> Endpoint {
-        guard Mock.shared.isActive else {
+        if case .never = stubClosure(token) {
             return super.endpoint(token)
         }
         

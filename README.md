@@ -21,3 +21,6 @@ The installation of this module can only be done with __Swift Package__.
 | **Networking** | [Moya](<https://github.com/Moya/Moya>) | 14.0.0
 | **Tests** | [Quick](<https://github.com/Quick/Quick>) | 3.0.0
 | **Tests** | [Nimble](<https://github.com/Quick/Nimble>) | 9.0.0
+
+# Tests
+![](img/tests.png)

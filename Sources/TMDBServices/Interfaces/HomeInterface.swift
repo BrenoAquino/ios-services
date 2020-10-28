@@ -12,7 +12,7 @@ public class HomeInterface {
     public struct HomeResult {
         var genres: [Genre]? = nil
         var upcomings: [Movie]? = nil
-        var moviesByGenre: [Int: [Movie]?]? = nil
+        var moviesByGenre: [Int: [Movie]?] = [:]
     }
     
     // MARK: Network Interfaces
@@ -60,13 +60,13 @@ public class HomeInterface {
         let group = DispatchGroup()
         getUpcoming(group: group) { $0.unwrapper(&homeResult.upcomings, &error) }
         getGenres(group: group) { result in
-            var genres: [Genre]?
-            result.unwrapper(&genres, &error)
-            
-            genres?.forEach { [weak self] genre in
-                var movies: [Movie]?
-                self?.getMovies(group: group, genre: genre) { $0.unwrapper(&movies, &error) }
-                homeResult.moviesByGenre?[genre.id] = movies
+            result.unwrapper(&homeResult.genres, &error)
+            homeResult.genres?.forEach { [weak self] genre in
+                self?.getMovies(group: group, genre: genre, callback: { result in
+                    if case .success(let model) = result {
+                        homeResult.moviesByGenre[genre.id] = model
+                    }
+                })
             }
         }
         

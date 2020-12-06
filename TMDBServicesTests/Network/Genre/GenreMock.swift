@@ -11,7 +11,7 @@ import TMDBServices
 
 enum GenreMock {
     static let genresSuccess = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("genres-success")
+        let data = Mock.shared.dataFromJson("genres-success")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -22,7 +22,7 @@ enum GenreMock {
     }
     
     static let genresGenericError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("genres-failure")
+        let data = Mock.shared.dataFromJson("genres-failure")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(400, data) },
@@ -33,7 +33,7 @@ enum GenreMock {
     }
     
     static let genresMapError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("genres-map-error")
+        let data = Mock.shared.dataFromJson("genres-map-error")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -44,7 +44,7 @@ enum GenreMock {
     }
     
     static let genresEmpty = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("genres-empty")
+        let data = Mock.shared.dataFromJson("genres-empty")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },

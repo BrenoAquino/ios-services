@@ -12,7 +12,7 @@ import TMDBServices
 enum MovieMock {
     // Upcoming
     static let upcomingSuccess = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("upcoming-success")
+        let data = Mock.shared.dataFromJson("upcoming-success")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -23,7 +23,7 @@ enum MovieMock {
     }
     
     static let upcomingGenericError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("upcoming-failure")
+        let data = Mock.shared.dataFromJson("upcoming-failure")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(400, data) },
@@ -34,7 +34,7 @@ enum MovieMock {
     }
     
     static let upcomingMapError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("upcoming-map-error")
+        let data = Mock.shared.dataFromJson("upcoming-map-error")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -45,7 +45,7 @@ enum MovieMock {
     }
     
     static let upcomingEmpty = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("upcoming-empty")
+        let data = Mock.shared.dataFromJson("upcoming-empty")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -57,7 +57,7 @@ enum MovieMock {
     
     // Detail
     static let detailSuccess = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("detail-success")
+        let data = Mock.shared.dataFromJson("detail-success")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -68,7 +68,7 @@ enum MovieMock {
     }
     
     static let detailGenericError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("detail-failure")
+        let data = Mock.shared.dataFromJson("detail-failure")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(400, data) },
@@ -79,7 +79,7 @@ enum MovieMock {
     }
     
     static let detailMapError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("detail-map-error")
+        let data = Mock.shared.dataFromJson("detail-map-error")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -91,7 +91,7 @@ enum MovieMock {
     
     // Keywords
     static let keywordsSuccess = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("keywords-success")
+        let data = Mock.shared.dataFromJson("keywords-success")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -102,7 +102,7 @@ enum MovieMock {
     }
     
     static let keywordsGenericError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("keywords-failure")
+        let data = Mock.shared.dataFromJson("keywords-failure")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(400, data) },
@@ -113,7 +113,7 @@ enum MovieMock {
     }
     
     static let keywordsMapError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("keywords-map-error")
+        let data = Mock.shared.dataFromJson("keywords-map-error")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -124,7 +124,7 @@ enum MovieMock {
     }
     
     static let keywordsEmpty = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("keywords-empty")
+        let data = Mock.shared.dataFromJson("keywords-empty")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -136,7 +136,7 @@ enum MovieMock {
     
     // Recommendations
     static let recommendationsSuccess = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("recommendations-success")
+        let data = Mock.shared.dataFromJson("recommendations-success")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -147,7 +147,7 @@ enum MovieMock {
     }
     
     static let recommendationsGenericError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("recommendations-failure")
+        let data = Mock.shared.dataFromJson("recommendations-failure")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(400, data) },
@@ -158,7 +158,7 @@ enum MovieMock {
     }
     
     static let recommendationsMapError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("recommendations-map-error")
+        let data = Mock.shared.dataFromJson("recommendations-map-error")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -169,7 +169,7 @@ enum MovieMock {
     }
     
     static let recommendationsEmpty = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("recommendations-empty")
+        let data = Mock.shared.dataFromJson("recommendations-empty")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },

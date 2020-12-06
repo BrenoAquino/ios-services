@@ -11,7 +11,7 @@ import TMDBServices
 
 enum DiscoverMock {
     static let discoverSuccess = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("discover-28-success")
+        let data = Mock.shared.dataFromJson("discover-28-success")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -22,7 +22,7 @@ enum DiscoverMock {
     }
     
     static let discoverGenericError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("discover-28-failure")
+        let data = Mock.shared.dataFromJson("discover-28-failure")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(400, data) },
@@ -33,7 +33,7 @@ enum DiscoverMock {
     }
     
     static let discoverMapError = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("discover-28-map-error")
+        let data = Mock.shared.dataFromJson("discover-28-map-error")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },
@@ -44,7 +44,7 @@ enum DiscoverMock {
     }
     
     static let discoverEmpty = { (target: Moya.TargetType) -> Endpoint in
-        let data = Mock.shared.file("discover-28-empty")
+        let data = Mock.shared.dataFromJson("discover-28-empty")
         return Endpoint(
             url: target.baseURL.appendingPathComponent(target.path).absoluteString,
             sampleResponseClosure: { .networkResponse(200, data) },

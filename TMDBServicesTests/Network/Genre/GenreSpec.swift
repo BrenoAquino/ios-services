@@ -21,6 +21,7 @@ class GenreSpec: QuickSpec {
         
         beforeEach {
             TMDBServices.shared.apiKey = "9fb1244aab053cf93fa00223bef8e80f"
+            Mock.shared.bundleId = "brenoaquino.TMDBServicesTests"
             Mock.shared.isActive = true
             Mock.shared.reset()
         }

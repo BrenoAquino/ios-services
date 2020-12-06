@@ -28,6 +28,7 @@ public class Mock {
         
     var endToEndTests: Bool = false
     var isActive: Bool = false
+    var bundleId: String = ""
     private var endpoints: [Int: ((TargetType) -> Endpoint)] = [:]
     
     // MARK: - Interfaces for Endpoints
@@ -47,19 +48,15 @@ public class Mock {
     }
     
     // MARK: - Interfaces to get JSON file
-    private func dataFromJsonFile(named name: String) -> Data {
-        if let file = Bundle.module.url(forResource: name, withExtension: "json") {
-            do {
-                let json = try String(contentsOf: file, encoding: .utf8)
-                return json.data(using: .utf8)!
-            } catch {
-                return Data()
-            }
+    private func dataFromFile(name: String, `extension`: String) -> Data {
+        if let file = Bundle(identifier: bundleId)?.url(forResource: name, withExtension: `extension`) {
+            let json = try? String(contentsOf: file, encoding: .utf8)
+            return json?.data(using: .utf8) ?? Data()
         }
         return "".data(using: .utf8) ?? Data()
     }
     
-    public func file(_ name: String) -> Data {
-        return dataFromJsonFile(named: "\(name)")
+    public func dataFromJson(_ name: String) -> Data {
+        return dataFromFile(name: name, extension: "json")
     }
 }

@@ -25,10 +25,12 @@ class DiscoverSpec: QuickSpec {
             Mock.shared.reset()
         }
         
-        describe("Hitting internet") {
-            context("for discover movies") {
-                it("and returning success") {
-                    self.hittingInternetDiscoverSuccess()
+        if Mock.shared.endToEndTests {
+            describe("End to end") {
+                context("for discover movies") {
+                    it("and returning success") {
+                        self.endToEndDiscoverSuccess()
+                    }
                 }
             }
         }
@@ -57,7 +59,7 @@ class DiscoverSpec: QuickSpec {
 
 // MARK: - Tests
 extension DiscoverSpec {
-    func hittingInternetDiscoverSuccess() {
+    func endToEndDiscoverSuccess() {
         Mock.shared.isActive = false
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in

@@ -25,10 +25,12 @@ class GenreSpec: QuickSpec {
             Mock.shared.reset()
         }
         
-        describe("Hitting internet") {
-            context("to get all genres") {
-                it("and returning success") {
-                    self.hittingInternetGenresSuccess()
+        if Mock.shared.endToEndTests {
+            describe("End to end") {
+                context("to get all genres") {
+                    it("and returning success") {
+                        self.endToEndGenresSuccess()
+                    }
                 }
             }
         }
@@ -57,7 +59,7 @@ class GenreSpec: QuickSpec {
 
 // MARK: - Tests
 extension GenreSpec {
-    func hittingInternetGenresSuccess() {
+    func endToEndGenresSuccess() {
         Mock.shared.isActive = false
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in

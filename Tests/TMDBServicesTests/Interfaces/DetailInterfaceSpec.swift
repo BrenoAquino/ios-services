@@ -25,10 +25,12 @@ class DetailInterfaceSpec: QuickSpec {
             Mock.shared.reset()
         }
         
-        describe("Hitting internet") {
-            context("to get movie detail") {
-                it("and returning success") {
-                    self.hittingInternetDetailSuccess()
+        if Mock.shared.endToEndTests {
+            describe("End to end") {
+                context("to get movie detail") {
+                    it("and returning success") {
+                        self.endToEndDetailSuccess()
+                    }
                 }
             }
         }
@@ -37,7 +39,7 @@ class DetailInterfaceSpec: QuickSpec {
 
 // MARK: - Tests
 extension DetailInterfaceSpec {
-    func hittingInternetDetailSuccess() {
+    func endToEndDetailSuccess() {
         Mock.shared.isActive = false
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in

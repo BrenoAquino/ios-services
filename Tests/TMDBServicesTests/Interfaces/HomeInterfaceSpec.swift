@@ -25,10 +25,12 @@ class HomeInterfaceSpec: QuickSpec {
             Mock.shared.reset()
         }
         
-        describe("Hitting internet") {
-            context("to get home") {
-                it("and returning success") {
-                    self.hittingInternetHomeSuccess()
+        if Mock.shared.endToEndTests {
+            describe("End to end") {
+                context("to get home") {
+                    it("and returning success") {
+                        self.endToEndHomeSuccess()
+                    }
                 }
             }
         }
@@ -37,7 +39,7 @@ class HomeInterfaceSpec: QuickSpec {
 
 // MARK: - Tests
 extension HomeInterfaceSpec {
-    func hittingInternetHomeSuccess() {
+    func endToEndHomeSuccess() {
         Mock.shared.isActive = false
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in

@@ -26,6 +26,7 @@ extension TargetType {
 public class Mock {
     public static let shared: Mock = Mock()
         
+    var endToEndTests: Bool = false
     var isActive: Bool = false
     private var endpoints: [Int: ((TargetType) -> Endpoint)] = [:]
     

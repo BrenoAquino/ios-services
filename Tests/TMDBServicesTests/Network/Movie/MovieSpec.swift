@@ -25,25 +25,27 @@ class MovieSpec: QuickSpec {
             Mock.shared.reset()
         }
         
-        describe("Hitting internet") {
-            context("to get upcoming movies") {
-                it("and returning success") {
-                    self.hittingInternetUpcomingSuccess()
+        if Mock.shared.endToEndTests {
+            describe("End to end") {
+                context("to get upcoming movies") {
+                    it("and returning success") {
+                        self.endToEndUpcomingSuccess()
+                    }
                 }
-            }
-            context("to get movie detail") {
-                it("and returning success") {
-                    self.hittingInternetDetailSuccess()
+                context("to get movie detail") {
+                    it("and returning success") {
+                        self.endToEndDetailSuccess()
+                    }
                 }
-            }
-            context("to get movie keywords") {
-                it("and returning success") {
-                    self.hittingInternetKeywordsSuccess()
+                context("to get movie keywords") {
+                    it("and returning success") {
+                        self.endToEndKeywordsSuccess()
+                    }
                 }
-            }
-            context("to get movie recommendations") {
-                it("and returning success") {
-                    self.hittingInternetRecommendationsSuccess()
+                context("to get movie recommendations") {
+                    it("and returning success") {
+                        self.endToEndRecommendationsSuccess()
+                    }
                 }
             }
         }
@@ -109,7 +111,7 @@ class MovieSpec: QuickSpec {
 // MARK: - Tests
 extension MovieSpec {
     // MARK: Hitting Internet
-    func hittingInternetUpcomingSuccess() {
+    func endToEndUpcomingSuccess() {
         Mock.shared.isActive = false
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
@@ -125,7 +127,7 @@ extension MovieSpec {
         }
     }
     
-    func hittingInternetDetailSuccess() {
+    func endToEndDetailSuccess() {
         Mock.shared.isActive = false
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
@@ -142,7 +144,7 @@ extension MovieSpec {
         }
     }
     
-    func hittingInternetKeywordsSuccess() {
+    func endToEndKeywordsSuccess() {
         Mock.shared.isActive = false
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
@@ -158,7 +160,7 @@ extension MovieSpec {
         }
     }
     
-    func hittingInternetRecommendationsSuccess() {
+    func endToEndRecommendationsSuccess() {
         Mock.shared.isActive = false
         
         waitUntil(timeout: DispatchTimeInterval.seconds(5)) { done in
